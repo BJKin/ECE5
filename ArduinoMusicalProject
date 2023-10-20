@@ -1,41 +1,143 @@
 #include "pitch.h"
-#define BUZZER_PIN 7
-int ledPin=13;
+const int buzzerPin=7;
+const int ledPin=13;
 const int sensorPin=A0;
-int lightlevel;
+int level;
 
-int melody[] = {
-  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
-};
-int noteDurations[] = {
-  4, 8, 8, 4, 4, 4, 4, 4
-};
 void setup() {
   Serial.begin(9600);
   pinMode(ledPin,OUTPUT);
+  pinMode(buzzerPin,OUTPUT);
 }
 
-void loop() {
+void lightlevel(){
+  level=analogRead(sensorPin);
+  Serial.print("The photoresistor is reading: ");
+  Serial.println(level);
+}
+void slowblink(){
   digitalWrite(ledPin, HIGH);
-  lightlevel=analogRead(sensorPin);
-  delay(5000);
-  Serial.print("The photoresistor is reading: ");
-  Serial.println(lightlevel);
-  
+  delay(1000);
   digitalWrite(ledPin,LOW);
-  lightlevel=analogRead(sensorPin);
-  Serial.print("The photoresistor is reading: ");
-  Serial.println(lightlevel);
-  delay(5000);
-
- while (lightlevel <= 80){
-    Serial.print("in loop and playing with this light level: "); 
-    Serial.println(lightlevel); 
-    for (int thisNote = 0; thisNote < 8; thisNote++) {
-      int noteDuration = 1000 / noteDurations[thisNote];
-      tone(BUZZER_PIN, melody[thisNote], noteDuration);
-      int pauseBetweenNotes = noteDuration * 1.30;
-      delay(pauseBetweenNotes);
-      noTone(BUZZER_PIN);
+  delay(1000);
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin,LOW);
+  delay(1000);
+}
+void fastblink(){
+  digitalWrite(ledPin, HIGH);
+  delay(500);
+  digitalWrite(ledPin,LOW);
+  delay(500);
+  digitalWrite(ledPin, HIGH);
+  delay(500);
+  digitalWrite(ledPin,LOW);
+  delay(500);
+}
+void loop() {
+  if (level<=20){
+   lightlevel();
+   slowblink();
+   slowblink();
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_A5);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_D3);
+    delay(100);
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_D3);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_D3);
+    delay(100);
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_A5);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_D3);
+    delay(100);
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+    noTone(buzzerPin);
     }
+  if (level>20){
+   lightlevel();
+   fastblink();
+   fastblink();
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+    tone(buzzerPin,NOTE_D3);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_D4);
+    delay(100);
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+     tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+    tone(buzzerPin,NOTE_D3);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_E3);
+    delay(100);
+    tone(buzzerPin,NOTE_G5);
+    delay(100);
+    tone(buzzerPin,NOTE_F4);
+    delay(100);
+    tone(buzzerPin,NOTE_D4);
+    delay(100);
+    tone(buzzerPin,NOTE_C4);
+    delay(100);
+    noTone(buzzerPin);
+  }
   }
